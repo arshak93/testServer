@@ -1,0 +1,45 @@
+apply plugin: 'java'
+//apply plugin: 'application'
+
+sourceCompatibility = 1.5
+version = '1.0'
+
+//mainClassName = 'HelloServer'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    /* Jetty */
+    compile "org.eclipse.jetty:jetty-server:9.2.5.v20141112"
+    compile "org.eclipse.jetty:jetty-webapp:9.2.5.v20141112"
+    compile "org.eclipse.jetty:jetty-io:9.2.5.v20141112"
+
+    /* Jersey */
+    compile "com.sun.jersey:jersey-core:1.19"
+    compile "com.sun.jersey:jersey-server:1.19"
+    compile "com.sun.jersey:jersey-servlet:1.19"
+    compile "com.sun.jersey.contribs:jersey-guice:1.19"
+
+    /* JSON */
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-json-org:2.4.4"
+
+    /* JAX-RS */
+    //compile "javax.servlet:javax.servlet-api:3.1.0"
+    compile "javax.ws.rs:jsr311-api:0.11"
+
+    /* Guice */
+    compile "com.google.inject:guice:3.0"
+    //compile "com.google.inject.extensions:guice-servlet:3.0"
+}
+
+uploadArchives{
+    repositories{
+        flatDir{
+            dirs 'deploy'
+        }
+    }
+}
