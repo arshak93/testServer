@@ -4,6 +4,8 @@ apply plugin: 'java'
 sourceCompatibility = 1.5
 version = '1.0'
 
+def outputDir = "$buildDir/output/";
+
 //mainClassName = 'HelloServer'
 
 repositories {
@@ -36,10 +38,35 @@ dependencies {
     //compile "com.google.inject.extensions:guice-servlet:3.0"
 }
 
-uploadArchives{
-    repositories{
-        flatDir{
+jar {
+    from configurations.runtime.collect {
+        zipTree(it)
+    }
+
+    manifest {
+        attributes "Main-Class": "com.awa.test.server.HelloServer"
+    }
+
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+}
+
+task deploy << {
+    println "Preparing Deployment Directory...."
+    copy {
+        from configurations.compile
+        into "$outputDir/lib"
+    }
+    copy {
+        into "$outputDir/"
+        from "$buildDir/libs"
+    }
+}
+
+/*
+uploadArchives {
+    repositories {
+        flatDir {
             dirs 'deploy'
         }
     }
-}
+}*/

@@ -12,8 +12,8 @@ public class HelloServer {
     {
         Injector injector = Guice.createInjector(new ApplicationModule());
         Server server = new Server(8888);
-        /*ServletContextHandler handler = new ServletContextHandler(server, "/example");
-        handler.addServlet(HelloWorldServlet.class, "/");*/
+        ServletContextHandler handler1 = new ServletContextHandler(server, "/example");
+        handler1.addServlet(HelloWorldServlet.class, "/");
 
         ServletContextHandler handler = new ServletContextHandler();
         handler.addFilter(GuiceFilter.class, "/*", null);
